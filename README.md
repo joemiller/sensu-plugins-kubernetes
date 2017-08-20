@@ -14,6 +14,7 @@ This provides functionality to check node and pod status as well as api and serv
 - bin/check-kube-apiserver-available.rb
 - bin/check-kube-pods-pending.rb
 - bin/check-kube-service-available.rb
+- bin/check-kube-service-endpoints.rb
 - bin/check-kube-pods-runtime.rb
 - bin/check-kube-pods-running.rb
 - bin/check-kube-pods-restarting.rb
@@ -35,6 +36,7 @@ Usage: check-kube-nodes-ready.rb (options)
         --token-file TOKEN-FILE      File containing bearer token for authorization
     -u, --user USER                  User with access to API
     -v, --api-version VERSION        API version
+        --kube-config KUBECONFIG     Path to a kube config file
 ```
 
 **check-kube-apiserver-available.rb**
@@ -49,6 +51,7 @@ Usage: check-kube-apiserver-available.rb (options)
     -t, --token TOKEN                Bearer token for authorization
         --token-file TOKEN-FILE      File containing bearer token for authorization
     -u, --user USER                  User with access to API
+        --kube-config KUBECONFIG     Path to a kube config file
 ```
 
 **check-kube-pods-pending.rb**
@@ -70,6 +73,7 @@ Usage: check-kube-pods-pending.rb (options)
     -f, --filter FILTER              Selector filter for pods to be checked
     -p, --pods PODS                  List of pods to check
     -r, --restart COUNT              Threshold for number of restarts allowed
+        --kube-config KUBECONFIG     Path to a kube config file
 ```
 
 **check-kube-service-available.rb**
@@ -87,6 +91,28 @@ Usage: check-kube-service-available.rb (options)
     -v, --api-version VERSION        API version
     -p, --pending SECONDS            Time (in seconds) a pod may be pending for and be valid
     -l, --list SERVICES              List of services to check (required)
+        --kube-config KUBECONFIG     Path to a kube config file
+```
+
+**check-kube-service-endpoints.rb**
+```
+Usage: bin/check-kube-service-endpoints.rb (options)
+        --ca-file CA-FILE            CA file to verify API server cert
+        --cert CERT-FILE             Client cert to present
+        --key KEY-FILE               Client key for the client cert
+        --in-cluster                 Use service account authentication
+    -p, --password PASSWORD          If user is passed, also pass a password
+    -s, --api-server URL             URL to API server
+        --token TOKEN                Bearer token for authorization
+        --token-file TOKEN-FILE      File containing bearer token for authorization
+    -u, --user USER                  User with access to API
+        --api-version VERSION        API version
+        --exclude-namespaces         Exclude the specified list of namespaces
+        --exclude-services           comma separated list of services to exclude
+    -n, --namespaces NAMESPACES      comma separated list of namespaces to check (default all)
+    -l, --services SERVICES          comma separated list of services to check (default all)
+    -t, --types TYPES                comma separated list of service types to check (default: ClusterIP,LoadBalancer)
+    -v, --verbose                    verbose output
 ```
 
 **check-kube-pods-runtime.rb**
@@ -106,6 +132,7 @@ Usage: check-kube-pods-runtime.rb (options)
     -f, --filter FILTER              Selector filter for pods to be checked
     -p, --pods PODS                  List of pods to check
     -w, --warn TIMEOUT               Threshold for pods to be in the pending state
+        --kube-config KUBECONFIG     Path to a kube config file
 ```
 
 **check-kube-pods-running.rb**
@@ -125,6 +152,7 @@ Usage: ./check-kube-pods-running.rb (options)
         --exclude-namespace
     -f, --filter FILTER              Selector filter for pods to be checked
     -p, --pods PODS                  List of pods to check
+        --kube-config KUBECONFIG     Path to a kube config file
 ```
 
 **check-kube-pods-restarting.rb**
@@ -146,6 +174,7 @@ Usage: ./check-kube-pods-restarting.rb (options)
     -f, --filter FILTER              Selector filter for pods to be checked
     -p, --pods PODS                  List of pods to check
     -r, --restart COUNT              Threshold for number of restarts allowed
+        --kube-config KUBECONFIG     Path to a kube config file
 ```
 
 **handler-kube-pod.rb**
@@ -186,6 +215,7 @@ Usage: metrics-pods.rb (options)
         --token-file TOKEN-FILE      File containing bearer token for authorization
         -u, --user USER                  User with access to API
         -v, --api-version VERSION        API version
+            --kube-config KUBECONFIG     Path to a kube config file
 ```
 
 `api_server` and `api_version` can still be used for backwards compatibility,
@@ -209,6 +239,7 @@ Of the Kubernetes connection options:
 --password PASSWORD          If user is passed, also pass a password
 --token TOKEN                Bearer token for authorization
 --token-file TOKEN-FILE      File containing bearer token for authorization
+--kube-config KUBECONFIG     Path to a kube config file
 ```
 Only the API server option is required, however it does default to the `KUBERNETES_MASTER` environment variable, or you can use the in-cluster option. The other options are to be used as needed.
 
@@ -227,3 +258,5 @@ Only one of the authentication methods (user, token, or token file) can be used.
 For example, using a username and a token, or a token and a token file, will produce an error.
 
 If the 'user' authentication method is used, a password must also be provided.
+
+The kubeconfig options enable the usage of a kubeconfig file, which is a yaml file which defines the authentication and TLS config. More information about kubeconfig files can be found in the [Kubernetes Docs](https://kubernetes.io/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/)

@@ -4,6 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+- Add `check-kube-service-endpoints.rb` check (@joemiller)
+
+## [1.1.0] - 2017-08-11
+### Added
+- Ruby 2.4.1 testing (@thomasriley)
+- Add option to use kubeconfig file for auth and TLS (@jaxxstorm)
 
 ## [1.0.0] - 2017-03-21
 ### Added
@@ -49,7 +56,8 @@ pending pods, the restart count portion has been split into it's own check, `che
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-kubernetes/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-kubernetes/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/sensu-plugins/sensu-plugins-kubernetes/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/sensu-plugins/sensu-plugins-kubernetes/compare/0.1.2...1.0.0
 [0.1.2]: https://github.com/sensu-plugins/sensu-plugins-kubernetes/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/sensu-plugins/sensu-plugins-kubernetes/compare/0.1.0...0.1.1
